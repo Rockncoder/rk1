@@ -66,3 +66,4 @@ build/
 .idea/compiler.xml
 .idea/inspectionProfiles/profiles_settings.xml
 .idea/.name
+!gradle/wrapper/gradle-wrapper.jar
