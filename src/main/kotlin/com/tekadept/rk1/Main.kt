@@ -8,16 +8,18 @@ object Main {
     fun main(args: Array<String>) {
         println("hola kimosabi")
         RatpackServer.start { spec ->
-            spec.serverConfig {c -> c.port(getAssignedPort())}
+            spec.serverConfig { c -> c.port(getAssignedPort()) }
             spec.handlers { chain ->
-                chain.get { ctx -> ctx.render("Hello, BoscoX!") }
+                chain.
+                        get { ctx -> ctx.render("Hello, Bosco") }.
+                        get("users") { ctx -> ctx.render("Hello, User Bosco") }
             }
         }
     }
+}
 
-    fun getAssignedPort(): Int {
-        val processBuilder = ProcessBuilder()
-        val envPort = processBuilder.environment()["PORT"];
-        return envPort?.toInt() ?: DEFAULT_PORT
-    }
+fun getAssignedPort(): Int {
+    val processBuilder = ProcessBuilder()
+    val envPort = processBuilder.environment()["PORT"]
+    return envPort?.toInt() ?: DEFAULT_PORT
 }
