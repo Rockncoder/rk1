@@ -4,6 +4,7 @@ import com.mongodb.MongoClient
 import com.mongodb.MongoClientURI
 import ratpack.jackson.Jackson.json
 
+// This is pure Mongo driver code
 fun mongoTest() {
     val connectionString = System.getenv("MONGODB_CONNECTION")
     val mongoClient = MongoClient(MongoClientURI(connectionString))

@@ -11,16 +11,16 @@ object Database {
     private lateinit var database: MongoDatabase
 
     init {
-        println("Database init")
         makeConnection()
     }
 
     fun makeConnection() {
         try {
+            // pull the connection from the environmental variables
             val connectionString = System.getenv(CONNECTION)
             val clientUri = MongoClientURI(connectionString)
             val client = KMongo.createClient(clientUri)
-            database = client.getDatabase("users")
+            database = client.getDatabase(DEFAULT_DB)
         } catch (ex: Exception) {
             // TODO: log this exception
             println("Got an exception")

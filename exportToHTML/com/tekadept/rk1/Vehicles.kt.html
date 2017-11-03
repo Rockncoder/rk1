@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>Vehicles.kt</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #666666; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,0); }
+.s1 { color: rgb(127,0,85); font-weight: bold; }
+.s2 { color: rgb(0,0,102); }
+.s3 { color: rgb(51,51,51); }
+.s4 { color: rgb(0,0,0); font-weight: bold; }
+.s5 { color: rgb(51,51,51); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+Vehicles.kt</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0"> 
+<a name="l45"><span class="ln">45   </span></a> 
+<a name="l46"><span class="ln">46   </span></a></span><span class="s1">fun </span><span class="s0">getVehicleByMakeModel</span><span class="s2">(</span><span class="s0">context: Context</span><span class="s2">) {</span><span class="s0"> 
+<a name="l47"><span class="ln">47   </span></a>    </span><span class="s1">val </span><span class="s0">make </span><span class="s3">= </span><span class="s0">context</span><span class="s3">.</span><span class="s0">pathTokens</span><span class="s2">[</span><span class="s4">&quot;make&quot;</span><span class="s2">]</span><span class="s0">?</span><span class="s3">.</span><span class="s0">capitalize</span><span class="s2">()</span><span class="s0"> 
+<a name="l48"><span class="ln">48   </span></a>    </span><span class="s1">val </span><span class="s0">model </span><span class="s3">= </span><span class="s0">context</span><span class="s3">.</span><span class="s0">pathTokens</span><span class="s2">[</span><span class="s4">&quot;model&quot;</span><span class="s2">]</span><span class="s0">?</span><span class="s3">.</span><span class="s0">capitalize</span><span class="s2">()</span><span class="s0"> 
+<a name="l49"><span class="ln">49   </span></a>    </span><span class="s1">if </span><span class="s2">(</span><span class="s0">make </span><span class="s3">== </span><span class="s1">null </span><span class="s3">|| </span><span class="s0">model </span><span class="s3">== </span><span class="s1">null</span><span class="s2">) {</span><span class="s0"> 
+<a name="l50"><span class="ln">50   </span></a>        context</span><span class="s3">.</span><span class="s0">response</span><span class="s3">.</span><span class="s0">status</span><span class="s2">(</span><span class="s5">400</span><span class="s2">)</span><span class="s0"> 
+<a name="l51"><span class="ln">51   </span></a>    </span><span class="s2">} </span><span class="s1">else </span><span class="s2">{</span><span class="s0"> 
+<a name="l52"><span class="ln">52   </span></a>        </span><span class="s1">val </span><span class="s0">collection </span><span class="s3">= </span><span class="s0">Database</span><span class="s3">.</span><span class="s0">getVehicles</span><span class="s2">()</span><span class="s0"> 
+<a name="l53"><span class="ln">53   </span></a>        </span><span class="s1">val </span><span class="s0">vehicles </span><span class="s3">= </span><span class="s0">collection</span><span class="s3">.</span><span class="s0">find</span><span class="s2">(</span><span class="s4">&quot;{make: '</span><span class="s5">$</span><span class="s0">make</span><span class="s4">', model: '</span><span class="s5">$</span><span class="s0">model</span><span class="s4">'}&quot;</span><span class="s2">)</span><span class="s3">.</span><span class="s0">sort</span><span class="s2">(</span><span class="s0">SORT_YMM</span><span class="s2">)</span><span class="s3">.</span><span class="s0">take</span><span class="s2">(</span><span class="s0">PAGE_COUNT</span><span class="s2">)</span><span class="s0"> 
+<a name="l54"><span class="ln">54   </span></a>        context</span><span class="s3">.</span><span class="s0">render</span><span class="s2">(</span><span class="s0">json</span><span class="s2">(</span><span class="s0">vehicles</span><span class="s2">))</span><span class="s0"> 
+<a name="l55"><span class="ln">55   </span></a>    </span><span class="s2">}</span><span class="s0"> 
+<a name="l56"><span class="ln">56   </span></a></span><span class="s2">}</span></pre>
+</body>
+</html>

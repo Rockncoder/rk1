@@ -10,10 +10,10 @@ import ratpack.jackson.Jackson.json
 
 
 fun vehicleHandler(chain: Chain) {
-    chain.
-            get("/:id", ::getVehicleByIdOrMake).
-            get("/:make/:model", ::getVehicleByMakeModel).
-            get(::getAllVehicles)
+    chain
+            .get("/:id", ::getVehicleByIdOrMake)
+            .get("/:make/:model", ::getVehicleByMakeModel)
+            .get(::getAllVehicles)
 }
 
 fun getAllVehicles(context: Context) {
@@ -39,7 +39,9 @@ fun getVehicleByIdOrMake(context: Context) {
 
 fun getVehicleByMake(context: Context, make: String) {
     val collection = Database.getVehicles()
-    val vehicles = collection.find("{make: '$make'}").sort(SORT_YMM).take(PAGE_COUNT)
+    val vehicles = collection.find("{make: '$make'}")
+            .sort(SORT_YMM)
+            .take(PAGE_COUNT)
     context.render(json(vehicles))
 }
 
@@ -50,7 +52,9 @@ fun getVehicleByMakeModel(context: Context) {
         context.response.status(400)
     } else {
         val collection = Database.getVehicles()
-        val vehicles = collection.find("{make: '$make', model: '$model'}").sort(SORT_YMM).take(PAGE_COUNT)
+        val vehicles = collection.find("{make: '$make', model: '$model'}")
+                .sort(SORT_YMM)
+                .take(PAGE_COUNT)
         context.render(json(vehicles))
     }
 }
