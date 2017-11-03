@@ -12,34 +12,41 @@ object Main {
             spec.serverConfig { config -> config.port(getAssignedPort()) }
             spec.handlers { chain ->
                 chain.
-                        get("baz", ::bazHandler).
-                        get("foo", ::fooHandler).
+                        path("fizz", ::fizzHandler).
+//                        get("fizz", ::fizzHandler).
+//                        post("fizz", { ctx -> ctx.render("Post Fizz")}).
+                        get("buzz", ::buzzHandler).
                         get("users") { ctx -> ctx.render("Hello, User Bosco") }.
                         prefix("vehicles", ::vehicleHandler).
                         prefix("cars", ::vehicleHandler).
-                        get { ctx -> ctx.render("Hello, Bosco") }
+                        get() { ctx -> ctx.render("Hello, Bosco") }
             }
         }
     }
 }
 
-fun bazHandler(context: Context) {
+fun fizzHandler(context: Context) {
+    context.byMethod { t ->
+        t.
+                get { context.render("GET FIZZ") }.
+                post { context.render("POST FIZZ") }.
+                patch { context.render("PATCH FIZZ") }.
+                put { context.render("PATCH FIZZ") }.
+                options { context.render("OPTIONS FIZZ") }.
+                delete { context.render("DELETE FIZZ") }
+    }
+}
+
+fun buzzHandler(context: Context) {
     context.render("from the baz handler")
 }
 
-fun fooHandler(context: Context) {
-    context.response.headers.add("Custom-Header", "custom-header-value")
-    context.response.status(400)
-    context.render("from the foo handler")
-}
-
 fun getAssignedPort(): Int {
-    val pb = ProcessBuilder()
-    val bub = pb.environment()["PORT"]?.toInt()?: DEFAULT_PORT
-    println("Assigned port = $bub")
-
-    val envPort = pb.environment()["PORT"]
-    return envPort?.toInt() ?: DEFAULT_PORT
+    val port = ProcessBuilder().environment()["PORT"]?.toInt() ?: DEFAULT_PORT
+    println("PORT = $port")
+    return port
+//    return ProcessBuilder().environment()["PORT"]?.toInt() ?: DEFAULT_PORT
 }
+
 
 
