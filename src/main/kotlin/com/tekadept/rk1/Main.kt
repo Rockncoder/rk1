@@ -19,8 +19,8 @@ object Main {
                         .prefix("vehicles", ::vehicleHandler)
                         // alias cars to vehicles as well
                         .prefix("cars", ::vehicleHandler)
-                        // here when no matches found
-                        .get() { ctx -> ctx.render("Hello KotlinConf 404") }
+                        // for the root path (aka no path provided)
+                        .get() { ctx -> ctx.render("Hello KotlinConf") }
             }
         }
     }
